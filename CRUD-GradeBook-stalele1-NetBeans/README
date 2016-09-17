@@ -1,0 +1,220 @@
+Student Name: Shreyas Ramesh Talele	
+ASU ID:	1209355546	
+Subject: Software Design
+Assignment Name: CRUD Assignment - Gradebook
+Assignment Number: 2
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+CRUD-GradeBook-stalele1-NetBeans.zip contains two projects in two folders
+	a. CRUD-GradeBook-stalele1-NetBeans-Server
+	b. CRUD-GradeBook-stalele1-NetBeans-Client
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+How to run:
+
+(Please perform double click on all radio buttons to make them work.)
+
+A. Server -
+
+ 	1. Load the given project "CRUD-GradeBook-stalele1-NetBeans-Server" in NetBeans.
+  	2. After successfully loading "CRUD-GradeBook-stalele1-NetBeans-Server" project, right click on project name and click on "Run" to start the server.
+  	   Start the server using - “Glassfish Server 1.1”.
+  	3. Data related to the Gradebook is stored inside the file "Gradebook.xml" which is present inside resources folder.
+		(Initially xml does not contain any data.)  	
+ 
+B. Client -
+
+	1. Load the given project "CRUD-GradeBook-stalele1-NetBeans-Client" in NetBeans.
+	2. After successfully loading "CRUD-GradeBook-stalele1-NetBeans-Client" project, right click on the file "CRUD_Client_UI.java" which is present  inside "com.mycompany.crud.gradebook.stalele1.netbeans.client" package inside Source packages and click on the "Run File" option.
+	3. This will launch the client UI where user can provide the various inputs.
+
+
+	Client UI has two radio buttons -
+	1. Teacher -
+		When user clicks on the "Teacher" radio button, it will dynamically generate the four radio buttons (four operations).
+		
+		a. Create -
+
+			1. When user clicks on the "Create" radio button, it provides various text fields to get user input.
+			2. In this screen, "Student id" and "Gradebook name"  - these are the mandatory fields in order to create a gradebook item for student with provided id.
+			3. It also has check box "Check if want to do for all students". When user checks this checkbox, it will hide student id and will show only gradebook name and gradebook weightage. Once user enters the gradebook name (mandatory) and gradebook weightage, it creates this gradebook item for all students.
+
+			It also has HTTP response information -
+			Whenever user clicks on button "Submit", it will perform CREATE operation and will return corrosponding values in Response code, Media Type and location in corrosponding text fields.
+			e.g. 
+			when student id = 1209355546 and gradeitemname = Assignment2 are added, it generates following information in text fields
+			Response code : 201
+			Media type: application/xml
+			Location: http://localhost:8080/CRUD-GradeBook-stalele1-NetBeans-Server/CSE-564/Gradebook/1209355546
+
+			When checkbox is checked, it adds that item for all students and it shows complete gradebook URI in location field.
+			e.g. 
+			Location: http://localhost:8080/CRUD-GradeBook-stalele1-NetBeans-Server/CSE-564/Gradebook
+
+			It returns "CREATED" when new item is created. And if we paste the corrosponding URL in browser, it shows corrosponding student id with its all information in browser.
+			It returns "CONFLICT" when same gradeitem is being added.
+			It returns "BADREQUEST" in case of any failure and "INTERNAL_SERVER_ERROR" in case of RuntimeException.
+		
+		b. Read - 
+
+			1. When user clicks on the "Read" radio button, it shows student id and gradeitem name fields.
+			2. After providing valid student id and gradeitem name, it shows all corrosponding information(gradeitem weightage,marks,feedback and appeal) related to that student id and gradeitem name
+
+			It also has HTTP response information -
+			Whenever user clicks on button "Submit", it will perform READ operation and will return corrosponding values in Response code, Media Type in corrosponding text fields.
+
+			It returns "OK" when valid student id and gradeitem name are provided.
+			It returns "GONE" when gradebook is empty and user tries to read particular student id.
+			It returns "NOT_FOUND" when invalid student id or gradeitem name is provided.
+			It returns "BADREQUEST" in case of any failure and "INTERNAL_SERVER_ERROR" in case of RuntimeException.
+
+		c. Update -
+
+			1. When user clicks on the "Update" radio button, it shows student id, gradeitem name, gradeitem weightage, feedback, gradeitem marks fields.
+			2. After providing valid id and name, it updates the remaining fields on click of submit button.
+
+
+			It also has HTTP response information -
+			Whenever user clicks on button "Submit", it will perform UPDATE operation and will return corrosponding values in Response code, Media Type in corrosponding text fields.
+
+			It returns "OK" when valid student id and gradeitem name are provided.
+			It returns "NOT_FOUND" when user try to update student id that does not exist.
+			It returns "CONFLICT" when gradebook is empty.
+			It returns "BADREQUEST" in case of any failure and "INTERNAL_SERVER_ERROR" in case of RuntimeException.
+
+		d. Delete - 
+
+			1. When user clicks on the "Delete" radio button, it shows student id, gradeitem name fields.
+			2. After providing valid student id and gradeitem name, it deletes the corrosponding gradeitem from that student.
+			3. It also has check box "Check if want to do for all students". When user checks this checkbox, it will hide student id and will show only gradebook name. Once user enters the gradebook name (mandatory), it deletes this gradebook item for all students.
+
+			It also has HTTP response information -
+			Whenever user clicks on button "Submit", it will perform DELETE operation and will return corrosponding values in Response code, Media Type in corrosponding text fields.
+
+			It returns "NO_CONTENT" when valid student id and gradeitem name are provided.
+			It returns "GONE" when gradebook is empty and user tries to delete particular student id.
+			It returns "NOT_FOUND" when user tries to delete particular student id that doesnot exist.
+			It returns "BADREQUEST" in case of any failure and "INTERNAL_SERVER_ERROR" in case of RuntimeException.
+
+	2. Student -
+		When user clicks on the "Student" radio button, it shows only "read" radio button.
+		
+		a. Read -
+			
+			A. Read -
+				1. When user clicks on the "Read" radio button, it shows student id and gradeitem name fields.
+				2. After providing valid student id and gradeitem name, it shows all corrosponding information(gradeitem weightage,marks,feedback) related to that student id and gradeitem name.
+				3. After successful read operation, it shows "Make Appeal" button.
+
+				It returns "OK" when valid student id and gradeitem name are provided.
+				It returns "NOT_FOUND" when invalid student id or gradeitem name is provided.
+				It returns "BADREQUEST" in case of any failure and "INTERNAL_SERVER_ERROR" in case of RuntimeException.
+
+			B. Put (Make Appeal) -
+			1. Here student can appeal to teacher. He can write some text on appeal text box and click on "Make Appeal" button so that in Teacher's read operation, it can read this appeal.
+
+				It returns "OK" when valid student id and gradeitem name are provided.
+				It returns "CONFLICT" when user try to update student id that does not exist.
+				It returns "BADREQUEST" in case of any failure and "INTERNAL_SERVER_ERROR" in case of RuntimeException.
+
+			It also has HTTP response information -
+			Whenever user clicks on button "Submit", it will perform READ operation and will return corrosponding values in Response code, Media Type in corrosponding text fields.
+
+			
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+
+	URI pattern:
+	
+	When user runs the server, it opens following URI in browser. It says "CRUD REST SERVER STARTED" and also shows Complete Gradebook link.
+		http://localhost:8080/CRUD-GradeBook-stalele1-NetBeans-Server/
+
+	URI pattern - 	
+
+		http://localhost:8080/CRUD-GradeBook-stalele1-NetBeans-Server/CSE-564/Gradebook/{studentid}/{gradeitemname}
+	
+	READ - 
+
+	1. Complete Gradebook: 
+		http://localhost:8080/CRUD-GradeBook-stalele1-NetBeans-Server/CSE-564/Gradebook
+
+		It shows complete gradebook.
+
+	2. Studentid:
+	 	http://localhost:8080/CRUD-GradeBook-stalele1-NetBeans-Server/CSE-564/Gradebook/1
+
+	 	Here it shows all information(all grade items, their marks, weightage, feedback and appeal) related to student id.
+
+	3. Studentid/Gradeitemname:
+		http://localhost:8080/CRUD-GradeBook-stalele1-NetBeans-Server/CSE-564/Gradebook/1/midterm
+
+		Here it shows gradeitem information(marks, weightage, feedback, appeal) related to that student id.
+
+	POST - 
+
+		http://localhost:8080/CRUD-GradeBook-stalele1-NetBeans-Server/CSE-564/Gradebook
+		with payload :
+		<Gradebook>
+		    <student id="11">
+		        <GrdeItem Name="Ass1" Weightage="20" Feedback="abc">100</GrdeItem>
+		    </student>
+    	</Gradebook>
+
+		It accepts Gradebook object which needs to be added to the gradebook.
+
+
+	PUT - 
+
+		http://localhost:8080/CRUD-GradeBook-stalele1-NetBeans-Server/CSE-564/Gradebook
+		with  payload :
+		<Gradebook>
+		    <student id="11">
+		        <GrdeItem Name="Ass1" Weightage="20" Feedback="abc">1000</GrdeItem>
+		    </student>
+    	</Gradebook>
+    	
+		It accepts Gradebook object which needs to be updated to the gradebook.
+
+	DELETE - 
+
+		http://localhost:8080/CRUD-GradeBook-stalele1-NetBeans-Server/CSE-564/Gradebook/1/midterm
+
+		This deletes the midterm gradeitem from student with id = 1.
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+
+	XML structure:
+
+	<Gradebook>
+	    <student id="11">
+	        <GrdeItem Name="Assignment1" Weightage="20" Feedback="abc">100</GrdeItem>
+	        <GrdeItem Name="Assignment2" Weightage="20" Feedback="abc">90</GrdeItem>
+	        <GrdeItem Name="MidTerm" Weightage="20" Feedback="abc" Appeal="Please recheck my paper">10</GrdeItem>
+	    </student>
+	    <student id="21">
+	        <GrdeItem Name="Assignment1" Weightage="20" Feedback="abc">100</GrdeItem>
+	        <GrdeItem Name="Assignment2" Weightage="20" Feedback="abc">90</GrdeItem>
+	        <GrdeItem Name="MidTerm" Weightage="20" Feedback="abc">10</GrdeItem>
+	    </student>
+	</Gradebook>
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
